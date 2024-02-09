@@ -1,0 +1,50 @@
+/* https://www.realtimecolors.com/dashboard?colors=010a06-f1fef9-1bea9a-f27ae5-ee4b67&fonts=Poppins-Poppins */
+
+@tailwind base;
+  
+@layer base {
+    :root {
+      --background: 157 87% 97%;
+      --foreground: 153 82% 2%;
+      --card: 157 87% 97%;
+      --card-foreground: 153 82% 2%;
+      --popover: 157 87% 97%;
+      --popover-foreground: 153 82% 2%;
+      --primary: 157 83% 51%;
+      --primary-foreground: 153 82% 2%;
+      --secondary: 307 82% 71%;
+      --secondary-foreground: 153 82% 2%;
+      --muted: 157 86% 20%;
+      --muted-foreground: 153 82% 70%;
+      --accent: 350 83% 61%;
+      --accent-foreground: 153 82% 2%;
+      --destructive: 0 85% 60%;
+      --destructive-foreground: 153 82% 2%;
+      --border: 157 86% 20%;
+      --input: 157 86% 20%;
+      --ring: 350 83% 40%;
+      --radius: 0.5rem;
+    }
+   
+    .dark {
+      --background: 157 87% 3%;
+      --foreground: 150 80% 98%;
+      --card: 157 87% 3%;
+      --card-foreground: 150 80% 98%;
+      --popover: 157 87% 3%;
+      --popover-foreground: 150 80% 98%;
+      --primary: 157 83% 49%;
+      --primary-foreground: 157 87% 3%;
+      --secondary: 307 82% 29%;
+      --secondary-foreground: 150 80% 98%;
+      --muted: 157 86% 80%;
+      --muted-foreground: 150 80% 98%;
+      --accent: 350 83% 39%;
+      --accent-foreground: 150 80% 98%;
+      --destructive: 0 62% 30%;
+      --destructive-foreground: 151 80% 10%;
+      --border: 157 87% 60%;
+      --input: 157 86% 80%;
+      --ring: 350 83% 60%;
+    }
+  }
