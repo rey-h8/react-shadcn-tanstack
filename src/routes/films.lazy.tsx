@@ -1,4 +1,4 @@
-import { useGetFilms } from '@/api/swapiRequests'
+import { useGetFilms } from '@/api/requests.swapi'
 import { createLazyFileRoute } from '@tanstack/react-router'
 
 export const Route = createLazyFileRoute('/films')({

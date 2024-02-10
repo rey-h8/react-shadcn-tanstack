@@ -14,10 +14,12 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as UsersUserIdImport } from './routes/users.$userId'
+import { Route as PeopleIdImport } from './routes/people.$id'
 
 // Create Virtual Routes
 
 const UsersLazyImport = createFileRoute('/users')()
+const PeopleLazyImport = createFileRoute('/people')()
 const FilmsLazyImport = createFileRoute('/films')()
 const IndexLazyImport = createFileRoute('/')()
 
@@ -27,6 +29,11 @@ const UsersLazyRoute = UsersLazyImport.update({
   path: '/users',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/users.lazy').then((d) => d.Route))
+
+const PeopleLazyRoute = PeopleLazyImport.update({
+  path: '/people',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/people.lazy').then((d) => d.Route))
 
 const FilmsLazyRoute = FilmsLazyImport.update({
   path: '/films',
@@ -43,6 +50,11 @@ const UsersUserIdRoute = UsersUserIdImport.update({
   getParentRoute: () => UsersLazyRoute,
 } as any)
 
+const PeopleIdRoute = PeopleIdImport.update({
+  path: '/$id',
+  getParentRoute: () => PeopleLazyRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -55,9 +67,17 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FilmsLazyImport
       parentRoute: typeof rootRoute
     }
+    '/people': {
+      preLoaderRoute: typeof PeopleLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/users': {
       preLoaderRoute: typeof UsersLazyImport
       parentRoute: typeof rootRoute
+    }
+    '/people/$id': {
+      preLoaderRoute: typeof PeopleIdImport
+      parentRoute: typeof PeopleLazyImport
     }
     '/users/$userId': {
       preLoaderRoute: typeof UsersUserIdImport
@@ -71,6 +91,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   FilmsLazyRoute,
+  PeopleLazyRoute.addChildren([PeopleIdRoute]),
   UsersLazyRoute.addChildren([UsersUserIdRoute]),
 ])
 
