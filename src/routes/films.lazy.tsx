@@ -2,15 +2,20 @@ import { useGetFilms } from '@/api/swapiRequests'
 import { createLazyFileRoute } from '@tanstack/react-router'
 
 export const Route = createLazyFileRoute('/films')({
-	component: Films,
+  component: Films,
 })
 
 function Films() {
-	const data = useGetFilms()
-	return (
-		<>
-			<div className='p-2'>Hello from Films!</div>
-			<pre className='mt-12 max-w-2xl'>{JSON.stringify(data, null, 2)}</pre>
-		</>
-	)
+  const { isLoading, error, data } = useGetFilms()
+
+  if (isLoading) return <p>Loading...</p>
+
+  if (error) return <p>Error fetching data</p>
+
+  return (
+    <>
+      <h1>Films</h1>
+      <pre className='max-w-2xl text-wrap'>{JSON.stringify(data, null, 2)}</pre>
+    </>
+  )
 }

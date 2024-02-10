@@ -16,9 +16,9 @@ const router = createRouter({ routeTree })
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
-	interface Register {
-		router: typeof router
-	}
+  interface Register {
+    router: typeof router
+  }
 }
 
 // ─── Configure React Query ───────────────────────────────────────────────────
@@ -26,22 +26,22 @@ declare module '@tanstack/react-router' {
 const MAX_RETRIES = import.meta.env.VITE_QUERY_MAX_RETRIES
 
 const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			staleTime: Number.POSITIVE_INFINITY,
-			retry: MAX_RETRIES,
-		},
-	},
+  defaultOptions: {
+    queries: {
+      staleTime: Number.POSITIVE_INFINITY,
+      retry: MAX_RETRIES,
+    },
+  },
 })
 
 const container = document.getElementById('root')
 
 if (container) {
-	ReactDOM.createRoot(container).render(
-		<React.StrictMode>
-			<QueryClientProvider client={queryClient}>
-				<RouterProvider router={router} />
-			</QueryClientProvider>
-		</React.StrictMode>,
-	)
+  ReactDOM.createRoot(container).render(
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </React.StrictMode>,
+  )
 }
