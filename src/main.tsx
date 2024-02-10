@@ -3,11 +3,10 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import './themes/theme2.css'
+// import './themes/theme2.css'
 
 // ─── Configure Routes ────────────────────────────────────────────────────────
 
-import { getEnv } from './lib/utils'
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
 
