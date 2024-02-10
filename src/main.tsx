@@ -1,28 +1,47 @@
-import { RouterProvider, createRouter } from "@tanstack/react-router"
-import React from "react"
-import ReactDOM from "react-dom/client"
-import "./index.css"
-import "./themes/theme2.css"
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { RouterProvider, createRouter } from '@tanstack/react-router'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'
+import './themes/theme2.css'
 
+// ─── Configure Routes ────────────────────────────────────────────────────────
+
+import { getEnv } from './lib/utils'
 // Import the generated route tree
-import { routeTree } from "./routeTree.gen"
+import { routeTree } from './routeTree.gen'
 
 // Create a new router instance
 const router = createRouter({ routeTree })
 
 // Register the router instance for type safety
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
 	interface Register {
 		router: typeof router
 	}
 }
 
-const root = document.getElementById("root")
+// ─── Configure React Query ───────────────────────────────────────────────────
 
-if (root) {
-	ReactDOM.createRoot(root).render(
+const MAX_RETRIES = import.meta.env.VITE_QUERY_MAX_RETRIES
+
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			staleTime: Number.POSITIVE_INFINITY,
+			retry: MAX_RETRIES,
+		},
+	},
+})
+
+const container = document.getElementById('root')
+
+if (container) {
+	ReactDOM.createRoot(container).render(
 		<React.StrictMode>
-			<RouterProvider router={router} />
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider router={router} />
+			</QueryClientProvider>
 		</React.StrictMode>,
 	)
 }
